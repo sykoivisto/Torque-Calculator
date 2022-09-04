@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Torque Calculator</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand">Silas Koivisto</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="https://github.com/sykoivisto"
+                >GitHub</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://www.linkedin.com/in/sykoivisto/"
+                >LinkedIn</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container-sm main">
+      <main>
+        <div class="row mt-3">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="https://github.com/sykoivisto">sykoivisto</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Torque Calculator</li>
+              </ol>
+            </nav> 
+        </div>
+
+        <div class="row">
+          <h1>Torque Calculator</h1>
+          <p>Look up the optimal torque value for various combinations of bolt size, thread type, and grade.</p>
+            <div class="alert alert-secondary">
+              <p>
+                Disclaimer: The following torque values are retrieved from
+                Fastenal Engineering. The following torque values are advisory only, 
+                and its use by anyone is voluntary. In developing this information, 
+                Fastenal has made a determined effort to present its contents accurately. 
+                Extreme caution should be used when using a formula for torque/tension relationships. 
+                Torque is only an indirect indication of tension. Under/over tightening of fasteners 
+                can result in costly equipment failure and/or personal injury.
+              </p>  
+              <p>
+                No two bolts respond exactly the same to a given torque. There are numerous "real world" complications. 
+                Things such as dirt in a tapped hole, grease of oil on the threads, damaged threads, hole misalignment, 
+                accuracy of torque measuring device, and numerous other factors can alter the torque-tension relationship. 
+                Even perfect input torque can give a variation of preload by as much as 25%.
+              </p>
+            </div>
+        </div>
+        <div class="row">
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="sae-tab" data-bs-toggle="tab" data-bs-target="#sae" type="button" role="tab" aria-controls="home" aria-selected="true">SAE</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="metric-tab" data-bs-toggle="tab" data-bs-target="#metric" type="button" role="tab" aria-controls="metric" aria-selected="false">Metric</button>
+            </li>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="sae" role="tabpanel" aria-labelledby="sae-tab">
+                <div class="card mt-3">
+                    <div class="card-body">
+                      <h4 class="card-title mb-3">SAE Bolts</h4>
+                      <div class="mb-3 row">
+                        <label for="diameter" class="col-form-label col-6">Bolt Diameter</label>
+                        <div class="col-6">
+                            <select class="form-select" aria-label="Bolt Diameter" id="diameter" onchange="calc()">
+                                <option selected value="0">1/4"</option>
+                                <option value="1">5/16"</option>
+                                <option value="2">3/8"</option>
+                                <option value="3">7/16"</option>
+                                <option value="4">1/2"</option>
+                                <option value="5">9/16"</option>
+                                <option value="6">5/8"</option>
+                                <option value="7">3/4"</option>
+                                <option value="8">7/8"</option>
+                                <option value="9">1"</option>
+                                <option value="10">1-1/4"</option>
+                                <option value="11">1-3/8"</option>
+                                <option value="12">1-1/2"</option>
+                            </select>
+                        </div>
+                      </div>
+                      <div class="mb-3 row">
+                        <label for="thread" class="col-form-label col-6">Thread Type</label>
+                        <div class="col-6">
+                            <select class="form-select" aria-label="Thread Type" id="thread" onchange="calc()">
+                                <option selected value="coarse">Coarse</option>
+                                <option value="fine">Fine</option>
+                            </select>
+                        </div>
+                      </div>
+                      <div class="mb-2 row">
+                        <label for="grade" class="col-form-label col-6">Standard and Grade</label>
+                        <div class="col-6">
+                            <select class="form-select" aria-label="Standard and Grade" id="grade" onchange="calc()">
+                                <option selected value="307">ASTM A307 Grade A</option>
+                                <option value="5">SAE J429 Grade 5</option>
+                                <option value="8">SAE J429 Grade 8</option>
+                                <option value="574">ASTM A574 Socket Head</option>
+                            </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-body return">
+                        <div class="mb-3 row">
+                            <label for="ecoguard" class="col-form-label col-6">Ecoguard</label>
+                            <div class="col-6">
+                                <input class="form-control" type="text" value="-" aria-label="Ecoguard torque" id="ecoguard">
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="lubricated" class="col-form-label col-6">Lubricated</label>
+                            <div class="col-6">
+                                <input class="form-control" type="text" value="-" aria-label="Lubricated torque" id="lubricated">
+                            </div>
+                        </div>
+                        <div class="mb-2 row">
+                            <label for="dry" class="col-form-label col-6">Dry</label>
+                            <div class="col-6">
+                                <input class="form-control" type="text" value="-" aria-label="Dry torque" id="dry">
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+            </div>
+            <div class="tab-pane fade" id="metric" role="tabpanel" aria-labelledby="metric-tab">
+                Coming Soon
+            </div>
+          </div> 
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./js/torque.js"></script>
+  </body>
+</html>
