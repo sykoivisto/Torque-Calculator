@@ -1,4 +1,4 @@
-#Torque Calculator
+# Torque Calculator
 
 A simple app to find the optimal torque values for various bolts depending on diameter, thread type, and grade.
 
